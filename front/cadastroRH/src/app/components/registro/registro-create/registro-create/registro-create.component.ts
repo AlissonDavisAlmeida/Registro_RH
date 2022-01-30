@@ -1,5 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
+interface ConhecimentoInterface{
+  id : number
+  nome : string
+}
 
 @Component({
   selector: 'app-registro-create',
@@ -7,9 +13,12 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./registro-create.component.css'],
 })
 export class RegistroCreateComponent implements OnInit {
-  constructor() { }
+  conhecimentos : ConhecimentoInterface[] = [];
+
+  constructor(private http : HttpClient) { }
 
   ngOnInit(): void {
+
   }
 
   enviarForm(myForm : NgForm) {
