@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { RegistroComponent } from './components/registro/registro/registro.component';
 import { HeaderComponent } from './components/header/header/header.component';
 import { RegistroCreateComponent } from './components/registro/registro-create/registro-create/registro-create.component';
+import { ValidarRegComponent } from './components/validar/validar-reg/validar-reg.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { RegistroCreateComponent } from './components/registro/registro-create/r
     RegistroComponent,
     HeaderComponent,
     RegistroCreateComponent,
+    ValidarRegComponent,
   ],
   imports: [
     BrowserModule,

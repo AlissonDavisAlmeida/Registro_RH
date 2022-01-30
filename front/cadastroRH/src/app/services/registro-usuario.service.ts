@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { RegistroUsuario } from '../components/registro/registro/RegistroInterface';
 
 @Injectable({
@@ -8,6 +8,9 @@ import { RegistroUsuario } from '../components/registro/registro/RegistroInterfa
 })
 export class RegistroUsuarioService implements OnDestroy {
   registros : RegistroUsuario[] = [];
+
+  // Subject para emitir o array de registro de usuários
+  registrosEmmit = new Subject<RegistroUsuario[]>();
 
   registroSubscription = new Subscription();
 
@@ -18,15 +21,16 @@ export class RegistroUsuarioService implements OnDestroy {
   }
 
   buscarRegistroUsuarios() {
-    this.registroSubscription = this.http.get('http://localhost:3001/usuarios').subscribe((retorno) => {
-      console.log(retorno);
+    this.registroSubscription = this.http.get<{usuarios :RegistroUsuario[]}>('http://localhost:3001/usuarios').subscribe((retorno) => {
+      this.registros = retorno.usuarios;
+      this.registrosEmmit.next(this.registros);
     }, (erro) => {
       console.log(erro);
     });
   }
 
   salvarRegistro(registro : RegistroUsuario, conhecimentos :string[]) {
-    this.http.post('http://localhost:3001/usuarios/registrar', {
+    return this.http.post<{mensagem: string, resultado :[]}>('http://localhost:3001/usuarios/registrar', {
       ...registro,
       conhecimentos,
     });

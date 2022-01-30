@@ -7,7 +7,7 @@ const Conhecimentos = require('../models/Conhecimento');
 
 // Métodos HTTP para as rotas dos usuários
 rotaUsuarios.get('', async (req, res) => {
-  const usuarios = await Usuario.findAll({ include: Conhecimentos });
+  const usuarios = await Usuario.findAll({ include: Conhecimentos, order: [['nome', 'ASC']] });
   return res.json({
     usuarios,
   });
@@ -20,10 +20,10 @@ rotaUsuarios.post('/registrar', async (req, res) => {
   } = req.body;
 
   // Verifica a existência do email
-  const existeEmail = await Usuario.findOne({ where: { email } });
-  if (existeEmail) {
+  const existeCpf = await Usuario.findOne({ where: { cpf } });
+  if (existeCpf) {
     return res.status(500).json({
-      mensagem: "O email informado já existe no Banco de Dados",
+      mensagem: "O cpf informado já existe no Banco de Dados",
     });
   }
   // Criação do Usuário no Banco de dados

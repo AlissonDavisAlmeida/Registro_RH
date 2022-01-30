@@ -19,6 +19,13 @@ export class RegistroCreateComponent implements OnInit {
   // Variável para armazenar a query
   conhecimentos : ConhecimentoInterface[] = [];
 
+  // Mensagem para configurar o modal
+  mensagemRetornoBackEnd : string = '';
+
+  // Flag para configurar o titulo da mensagem do modal
+  isSuccess : Boolean = false;
+
+  // Verifica se o checkbox é válido
   isCheckValid : Boolean = false;
 
   constructor(private http : HttpClient, private registroService : RegistroUsuarioService) { }
@@ -54,7 +61,13 @@ export class RegistroCreateComponent implements OnInit {
         conhecimentoArray.push(key);
       }
     }
-    this.registroService.salvarRegistro(registro, conhecimentoArray);
+    this.registroService.salvarRegistro(registro, conhecimentoArray).subscribe((retorno) => {
+      console.log(retorno);
+      this.mensagemRetornoBackEnd = retorno.mensagem ? retorno.mensagem : 'Ocorreu um erro no banco de dados';
+    }, (erro) => {
+      console.log(erro.error.mensagem);
+      this.mensagemRetornoBackEnd = erro.error.mensagem;
+    });
   }
 
   // método para verificar se o usuário selecionou entre 1 e 3 conhecimentos
