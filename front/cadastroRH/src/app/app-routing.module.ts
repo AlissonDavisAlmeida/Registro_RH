@@ -7,7 +7,7 @@ import { ValidarRegComponent } from './components/validar/validar-reg/validar-re
 const routes: Routes = [
   { path: 'registrar', component: RegistroCreateComponent },
   { path: 'registros', component: RegistroComponent },
-  { path: 'validar', component: ValidarRegComponent },
+  { path: ':nome/validar', component: ValidarRegComponent },
   { path: '', redirectTo: 'registrar', pathMatch: 'full' },
 ];
 

@@ -1,0 +1,8 @@
+<div class="list-group">
+    <a class="list-group-item list-group-item-action link"  *ngFor="let registro of registros" 
+     [routerLink]="['/',registro.nome, 'validar']">Nome: {{registro.nome}}
+    <span [ngClass]="{'valid':  registro.status,'invalid':!registro.status}">
+       {{registro.status? 'Validado' : 'Não Validado'}}
+    </span>
+    </a>
+</div>
