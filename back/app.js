@@ -7,11 +7,10 @@ const rotaUsuarios = require("./routes/rotaUsuarios");
 const rotaConhecimentos = require("./routes/rotaConhecimento");
 
 const app = express();
-
+app.use(cors());
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 
 // Rotas
 app.use("/usuarios", rotaUsuarios);

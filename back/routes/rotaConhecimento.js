@@ -1,4 +1,5 @@
 const express = require("express");
+
 const Conhecimentos = require("../models/Conhecimento");
 
 const rotaConhecimentos = express.Router();

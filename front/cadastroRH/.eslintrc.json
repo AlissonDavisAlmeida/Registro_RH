@@ -23,6 +23,7 @@
         "class-methods-use-this":"off",
         "no-unused-vars":"off",
         "linebreak-style":"off",
-        "import/extensions":"off"
+        "import/extensions":"off",
+        "prefer-destructuring":"off"
     }
 }

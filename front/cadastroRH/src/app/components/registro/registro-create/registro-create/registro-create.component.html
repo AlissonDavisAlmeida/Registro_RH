@@ -1,6 +1,6 @@
 <div class="container principal">
 
-    <form #myForm="ngForm" ngSubmit="enviarForm(myForm)">
+    <form #myForm="ngForm" (ngSubmit)="enviarForm(myForm)">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" id="nome" ngModel name="nome" maxlength="100" placeholder="Coloque aqui o seu nome" required>
@@ -17,6 +17,18 @@
         <div class="mb-3">
             <label for="celular" class="form-label">Celular</label>
             <input type="text" class="form-control" ngModel id="celular" name="celular" mask="(00) 00000-0000" placeholder="(00) 00000-0000">
+        </div>
+        <div class="mb-3">
+           
+            <div class="form-check form-check-inline" ngModelGroup="name" *ngFor="let conhecimento of conhecimentos; let i = index">
+                <input type="checkbox" value="{{conhecimento.nome}}" id="{{conhecimento.nome}}" class="form-check-input" 
+                name="{{conhecimento.nome}}" #conhec="ngModel"
+                 ngModel>
+                <label for="{{conhecimento.nome}}" class="form-check-label">{{ conhecimento.nome }}</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary"  type="submit">Salvar</button>
         </div>
     </form>
 </div>
