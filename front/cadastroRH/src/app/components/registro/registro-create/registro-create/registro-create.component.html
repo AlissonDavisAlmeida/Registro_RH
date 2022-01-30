@@ -1,6 +1,6 @@
 <div class="container principal">
 
-    <form #myForm="ngForm" (ngSubmit)="enviarForm(myForm)">
+    <form #myForm="ngForm" (ngSubmit)="enviarForm(myForm)" class="animate__animated animate__rubberBand">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" id="nome" ngModel name="nome" minlength="5" maxlength="100" #nome="ngModel"
@@ -44,7 +44,7 @@
 
     <!-- Modal -->
     
-    <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+    <div class="modal fade animate__animated animate__bounceInUp" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

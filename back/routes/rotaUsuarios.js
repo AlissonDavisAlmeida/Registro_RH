@@ -47,4 +47,8 @@ rotaUsuarios.post('/registrar', async (req, res) => {
   }));
 });
 
+rotaUsuarios.put("/atualizar", async (req, res) => {
+
+});
+
 module.exports = rotaUsuarios;

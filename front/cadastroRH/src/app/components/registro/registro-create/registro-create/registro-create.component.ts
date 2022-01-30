@@ -63,7 +63,7 @@ export class RegistroCreateComponent implements OnInit {
     }
     this.registroService.salvarRegistro(registro, conhecimentoArray).subscribe((retorno) => {
       console.log(retorno);
-      this.mensagemRetornoBackEnd = retorno.mensagem ? retorno.mensagem : 'Ocorreu um erro no banco de dados';
+      this.mensagemRetornoBackEnd = retorno.mensagem ? retorno.mensagem : 'Ocorreu um erro no banco de dados, verifique os campos digitados';
       this.isSuccess = true;
     }, (erro) => {
       console.log(erro.error.mensagem);
