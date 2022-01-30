@@ -1,6 +1,7 @@
 <div class="list-group lista">
-    <a class="list-group-item list-group-item-action link"  *ngFor="let registro of registros" 
-     [routerLink]="['/',registro.nome, 'validar']">Nome: {{registro.nome}}
+    <input type="text" class="list-group-item text-center" placeholder="Pesquise Aqui" (input)="buscarNome($event)">
+    <a class="list-group-item list-group-item-action link"  *ngFor="let registro of registros; let i = index" 
+     [routerLink]="['/',registro.nome, 'validar', {indice : i}]">Nome: {{registro.nome}}
     <span [ngClass]="{'valid':  registro.status,'invalid':!registro.status}">
        {{registro.status? 'Validado' : 'Não Validado'}}
     </span>

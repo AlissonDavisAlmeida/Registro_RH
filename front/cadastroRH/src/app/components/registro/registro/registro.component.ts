@@ -21,10 +21,14 @@ export class RegistroComponent implements OnInit, OnDestroy {
 
   // Na inicialização do componente é realizada a busca de todos os registros e a inscrição no Observable do Registro de Serviço
   ngOnInit(): void {
-    this.registroService.buscarRegistroUsuarios();
+    this.registroService.buscarRegistroUsuarios('');
     this.registroSubscription = this.registroService.registrosEmmit.subscribe((retorno) => {
       this.registros = retorno;
       console.log(this.registros);
     });
+  }
+
+  buscarNome(event : any) {
+    this.registroService.buscarRegistroUsuarios(event.target.value);
   }
 }

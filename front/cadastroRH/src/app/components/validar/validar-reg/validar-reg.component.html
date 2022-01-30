@@ -1,1 +1,15 @@
-<p>validar-reg works!</p>
+<div class="card text-center m-4 text-dark  fw-bold bg-light">
+    <div class="card-header fs-1">{{ usuario.nome }}</div>
+    <div class="card-body">
+        <div class="card-title bg-info text-white">{{usuario.email}}</div>
+        <p class="card-text">O usuário {{ usuario.nome }} com o cpf {{ usuario.cpf }} tem conhecimentos em:</p>
+       <div *ngFor="let conhecimento of usuario.Conhecimentos">{{ conhecimento.nome }}</div>
+       <button class="mt-3 btn-lg" [ngClass]="{'btn btn-success': !usuario.status, 'btn btn-danger' :usuario.status}" (click)="validarUsuario()">
+           {{usuario.status? 'Invalidar' : 'Validar'}}
+        </button> 
+
+    </div>
+    <div class="card-footer" [ngClass]="{'invalid': !usuario.status, 'valid':usuario.status}">
+        {{ usuario.status? 'Usuário Validado' : 'Usuário não validado' }}
+    </div>
+</div>
