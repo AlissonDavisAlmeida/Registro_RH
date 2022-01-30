@@ -1,1 +1,18 @@
-<p>registro-create works!</p>
+<div class="container principal">
+
+    <form #myForm="ngForm" ngSubmit="enviarForm(myForm)">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" ngModel name="nome" maxlength="100" placeholder="Coloque aqui o seu nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" email required  class="form-control" ngModel id="email" name="email"
+                     placeholder="seuemail@servidor.com">
+        </div>
+        <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" required class="form-control" ngModel id="cpf" name="cpf" mask="000.000.000-00" placeholder="000.000.000-00">
+        </div>
+    </form>
+</div>

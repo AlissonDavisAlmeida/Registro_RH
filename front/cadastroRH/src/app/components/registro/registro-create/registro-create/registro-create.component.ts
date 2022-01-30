@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registro-create',
@@ -9,5 +10,9 @@ export class RegistroCreateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  enviarForm(myForm : NgForm) {
+    console.log(myForm);
   }
 }
