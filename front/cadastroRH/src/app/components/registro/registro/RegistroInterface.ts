@@ -1,8 +1,8 @@
 export interface RegistroUsuario{
-    id : number,
+    id? : number,
     nome : string,
     email : string,
     celular : string,
-    status : boolean,
+    status? : boolean,
     cpf : string
   }

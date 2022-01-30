@@ -19,6 +19,13 @@ rotaUsuarios.post('/registrar', async (req, res) => {
     nome, email, cpf, celular, conhecimentos,
   } = req.body;
 
+  // Verifica a existência do email
+  const existeEmail = await Usuario.findOne({ where: { email } });
+  if (existeEmail) {
+    return res.status(500).json({
+      mensagem: "O email informado já existe no Banco de Dados",
+    });
+  }
   // Criação do Usuário no Banco de dados
   Usuario.create({
     nome,
@@ -30,10 +37,12 @@ rotaUsuarios.post('/registrar', async (req, res) => {
     // Busca da lista de conhecimento para adicionar na tabela usuarioconhecimento
     const conhecimento = await Conhecimentos.findAll({ where: { nome: conhecimentos } });
     await resultado.addConhecimentos(conhecimento);
-    res.json({
+    return res.json({
+      mensagem: "Registro de usuário adicionado com sucesso",
       resultado,
     });
   }).catch((erro) => res.json({
+
     erro,
   }));
 });

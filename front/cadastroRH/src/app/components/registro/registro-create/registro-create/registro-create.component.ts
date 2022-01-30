@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModelGroup } from '@angular/forms';
+import { RegistroUsuarioService } from 'src/app/services/registro-usuario.service';
+import { RegistroUsuario } from '../../registro/RegistroInterface';
 
 // Interface que representa a tabela de conhecimentos no banco de dados
 interface ConhecimentoInterface{
@@ -17,7 +19,9 @@ export class RegistroCreateComponent implements OnInit {
   // Variável para armazenar a query
   conhecimentos : ConhecimentoInterface[] = [];
 
-  constructor(private http : HttpClient) { }
+  isCheckValid : Boolean = false;
+
+  constructor(private http : HttpClient, private registroService : RegistroUsuarioService) { }
 
   ngOnInit(): void {
     // No carregamento do componente todos os conhecimentos são carregados através do Back end
@@ -32,6 +36,44 @@ export class RegistroCreateComponent implements OnInit {
   }
 
   enviarForm(myForm : NgForm) {
-    console.log(myForm.value);
+    // Valores do formulário
+    const objetoForm = myForm.value;
+    // Array que vai popular os checkboxs que foram selecionados pelo usuário
+    const conhecimentoArray = [];
+    // Objeto registro que vai ser passado para o Banco de dados
+    const registro : RegistroUsuario = {
+      nome: objetoForm.nome,
+      cpf: objetoForm.cpf,
+      email: objetoForm.email,
+      celular: objetoForm.celular,
+    };
+
+    const conhecimentos = objetoForm.conhecimentos;
+    for (const key in conhecimentos) {
+      if (conhecimentos[key] === true) {
+        conhecimentoArray.push(key);
+      }
+    }
+    this.registroService.salvarRegistro(registro, conhecimentoArray);
+  }
+
+  // método para verificar se o usuário selecionou entre 1 e 3 conhecimentos
+  verificarCheck(myForm : NgForm) {
+    let conhecimentos = myForm.value.conhecimentos;
+    // Para validar se o usuário selecionou a quantidade correta, é extraido os valores dos objetos e verificado quais valores são true com o reduce, caso
+    // algum valor seja true é incrementado no acumulador
+    conhecimentos = Object.values(conhecimentos || '');
+    const isMaxMin = conhecimentos.reduce((acc :any, atual:any) => {
+      if (atual === true) {
+        acc += 1;
+      }
+      return acc;
+    }, 0);
+    if (isMaxMin < 1 || isMaxMin > 3) {
+      this.isCheckValid = false;
+      return true;
+    }
+    this.isCheckValid = true;
+    return false;
   }
 }

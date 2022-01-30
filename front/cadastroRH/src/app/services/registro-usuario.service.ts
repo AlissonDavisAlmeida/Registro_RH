@@ -24,4 +24,11 @@ export class RegistroUsuarioService implements OnDestroy {
       console.log(erro);
     });
   }
+
+  salvarRegistro(registro : RegistroUsuario, conhecimentos :string[]) {
+    this.http.post('http://localhost:3001/usuarios/registrar', {
+      ...registro,
+      conhecimentos,
+    });
+  }
 }

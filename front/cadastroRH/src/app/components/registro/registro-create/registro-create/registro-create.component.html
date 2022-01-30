@@ -3,32 +3,40 @@
     <form #myForm="ngForm" (ngSubmit)="enviarForm(myForm)">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" ngModel name="nome" maxlength="100" placeholder="Coloque aqui o seu nome" required>
+            <input type="text" class="form-control" id="nome" ngModel name="nome" minlength="5" maxlength="100" #nome="ngModel"
+                placeholder="Coloque aqui o seu nome" required>
+            <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">Por favor, preencha o
+                campo</div>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" email required  class="form-control" ngModel id="email" name="email"
-                     placeholder="seuemail@servidor.com">
+            <input type="email" email required class="form-control" ngModel #email="ngModel" id="email" name="email"
+                placeholder="seuemail@servidor.com">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">O email está incorreto</div>
         </div>
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" required class="form-control" ngModel id="cpf" name="cpf" mask="000.000.000-00" placeholder="000.000.000-00">
+            <input type="text" required class="form-control" #cpf="ngModel" ngModel id="cpf" name="cpf" mask="000.000.000-00"
+                placeholder="000.000.000-00">
+                <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="alert alert-danger">O cpf está inválido</div>
         </div>
         <div class="mb-3">
             <label for="celular" class="form-label">Celular</label>
-            <input type="text" class="form-control" ngModel id="celular" name="celular" mask="(00) 00000-0000" placeholder="(00) 00000-0000">
+            <input type="text" class="form-control" ngModel id="celular" name="celular" mask="(00) 00000-0000"
+                placeholder="(00) 00000-0000">
         </div>
         <div class="mb-3">
-           
-            <div class="form-check form-check-inline" ngModelGroup="name" *ngFor="let conhecimento of conhecimentos; let i = index">
-                <input type="checkbox" value="{{conhecimento.nome}}" id="{{conhecimento.nome}}" class="form-check-input" 
-                name="{{conhecimento.nome}}" #conhec="ngModel"
-                 ngModel>
+
+            <div class="form-check form-check-inline" ngModelGroup="conhecimentos"
+                *ngFor="let conhecimento of conhecimentos; let i = index">
+                <input type="checkbox" value="{{conhecimento.nome}}" id="{{conhecimento.nome}}" class="form-check-input"
+                    name="{{conhecimento.nome}}" #conhec="ngModel" ngModel>
                 <label for="{{conhecimento.nome}}" class="form-check-label">{{ conhecimento.nome }}</label>
             </div>
+            <div *ngIf="verificarCheck(myForm)" class="alert alert-danger">Precisa selecionar no mínimo 1 conhecimento e no máximo 3</div>
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary"  type="submit">Salvar</button>
+            <button class="btn btn-primary" [disabled]="!myForm.valid || !isCheckValid" type="submit">Salvar</button>
         </div>
     </form>
 </div>

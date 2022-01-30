@@ -24,6 +24,10 @@
         "no-unused-vars":"off",
         "linebreak-style":"off",
         "import/extensions":"off",
-        "prefer-destructuring":"off"
+        "prefer-destructuring":"off",
+        "no-param-reassign":"off",
+        "array-callback-return":"off",
+        "max-len":"off",
+        "no-restricted-syntax":"off"
     }
 }
